@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Arithmetic App</title>
+<script>
+function calculateSum() {
+    var number1 = document.getElementById('number1').value;
+    var number2 = document.getElementById('number2').value;
+    var url = '/add?num1=' + encodeURIComponent(number1) + '&num2=' + encodeURIComponent(number2);
+
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('result').textContent = data.sum;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('result').textContent = 'Error calculating sum';
+    });
+}
+</script>
+</head>
+<body>
+<h1>Arithmetic</h1>
+<div>
+    <input type="number" id="number1" placeholder="Enter first number">
+    <span>+</span>
+    <input type="number" id="number2" placeholder="Enter second number">
+    <button onclick="calculateSum()">=</button>
+    <span id="result"></span>
+</div>
+</body>
+</html>
